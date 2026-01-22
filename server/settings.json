@@ -1,0 +1,12 @@
+{
+    "test_dir": "tests",
+    "test_suite_names": ["serveload"],
+    "test_suites": {
+      "serveload": [
+        { "desc": "Saturate 1",  "args": ["4","20","4"],  "diff": "normal", "infile": "", "outfile": "", "valgrind": false, "points": 25 },
+        { "desc": "Saturate 2",  "args": ["10","20","2"],  "diff": "normal", "infile": "", "outfile": "", "valgrind": false, "points": 25 },
+        { "desc": "Non-Saturate 1",  "args": ["16","10","4"],  "diff": "normal", "infile": "", "outfile": "", "valgrind": false, "points": 25 },
+        { "desc": "Non-Saturate 2",  "args": ["20","10","2"],  "diff": "normal", "infile": "", "outfile": "", "valgrind": false, "points": 25 }
+      ]
+    }
+  }

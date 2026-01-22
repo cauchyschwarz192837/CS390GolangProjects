@@ -1,0 +1,9 @@
+=== Demo start ===
+[client1] get alpha -> value=0 ok=true err=""
+[client1] put alpha=0 -> ok=true err=""
+[client2] get alpha -> value=0 ok=true err=""
+[client1] get alpha (pending)
+[client2] get alpha -> value=0 ok=true err=""
+[client2] put alpha=1 -> ok=true err=""
+[client1] pending get alpha reply -> value=1 ok=true err=""
+=== Demo end ===

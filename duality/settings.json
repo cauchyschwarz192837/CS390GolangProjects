@@ -1,0 +1,10 @@
+{
+    "test_dir": "tests",
+    "test_suite_names": ["kvrun"],
+    "test_suites": {
+      "kvrun": [
+        { "desc": "ultimate answer",  "args": ["42","7"],  "diff": "normal", "infile": "", "outfile": "", "valgrind": false, "points": 50 },
+        { "desc": "binary",  "args": ["0","1"],  "diff": "normal", "infile": "", "outfile": "", "valgrind": false, "points": 50 }
+      ]
+    }
+  }
