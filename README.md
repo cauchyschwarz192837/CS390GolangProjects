@@ -1,1 +1,1 @@
-Go projects for CS390: Distributed Systems (Spring 2026)
+# Go projects for CS390: Distributed Systems (Spring 2026)
