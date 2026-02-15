@@ -48,6 +48,8 @@ func main() {
 
 	elapsed := time.Since(startup)
 
+	//--------------------------------------------------------------------------------------
+
 	// After Loadgen returns, get stats and histogram
 	attempts, sent, skipped, recv, mean := GetStats()
 	if attempts != sent+skipped {

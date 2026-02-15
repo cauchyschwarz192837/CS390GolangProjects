@@ -15,23 +15,50 @@ type Request struct {
 	ReplyCh    chan<- Request
 }
 
+type Permission struct{}
+
+// OK!
 func ReqHandler(reqCh <-chan Request, maxConcurrent int) {
 	if maxConcurrent <= 0 {
 		maxConcurrent = 1
 	}
 
+	// CHANNEL MUST STORE PERMITS, NOT REQUESTS!
+	// use a channel as a counting semaphore
+	permissions := make(chan Permission, maxConcurrent)
+
 	for req := range reqCh {
-		serve(req)
+		perm := Permission{}
+		permissions <- perm
+
+		go serve(req, permissions)
 	}
 }
 
+func byebye(permissions <-chan Permission) {
+	<-permissions
+}
+
+// When a thread blocks:
+// OS saves its registers
+// Marks it BLOCKED
+// Picks another READY thread
+// Loads its registers
+// CPU continues immediately
+// data := <-ch    // blocks goroutine
+
 // Serve one request.  Sleep or burnCPU as requested.
-func serve(r Request) {
+// fire goroutine for each request,
+func serve(r Request, permissions <-chan Permission) {
+
+	// Deferred calls run in LIFO order (stack behavior)
+	defer byebye(permissions)
+
 	if r.WorkDemand > 0 {
-		burnCPU(r.WorkDemand)
+		burnCPU(r.WorkDemand) // spins, prevents other work in the same goroutine
 	}
 	if r.WaitDemand > 0 {
-		time.Sleep(time.Duration(r.WaitDemand) * time.Millisecond)
+		time.Sleep(time.Duration(r.WaitDemand) * time.Millisecond) // blocking operation
 	}
 
 	if r.ReplyCh != nil {
@@ -39,6 +66,7 @@ func serve(r Request) {
 	}
 }
 
+// OK!
 func burnCPU(ms int) {
 	deadline := time.Now().Add(time.Duration(ms) * time.Millisecond)
 
