@@ -1,5 +1,7 @@
 # Golang Projects for CS390: Distributed Systems (Spring 2026)
 
+---
+
 ## Lab 1
 Emulates a key-value store (KVStore) and a group of clients (KVClient) that maintain a cache over the KVStore, and ensures cache coherence.
 
